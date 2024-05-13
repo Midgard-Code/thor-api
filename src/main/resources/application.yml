@@ -1,3 +1,9 @@
 spring:
   application:
     name: thor-api
+
+api:
+  tomorrow-io:
+    api-key: HWsssnn5nA0JUgowP0aoX4MegYfMKmu3
+    endpoints:
+      weather-forecast: https://api.tomorrow.io/v4/weather/forecast
