@@ -7,6 +7,7 @@ import midgard.code.thor.api.model.dto.WeatherForecastDto;
 import midgard.code.thor.api.utils.HttpClientManager;
 import midgard.code.thor.api.utils.HttpClientManagerImpl;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -23,6 +24,7 @@ public class WeatherServiceImpl implements WeatherService {
     private String apiKey;
 
     @Override
+    @Cacheable("forecastCache")
     public WeatherForecastDto getWeatherForecast(String location) throws InternalServerException, InvalidRequestException {
         HttpClientManager httpClientManager = new HttpClientManagerImpl();
 
