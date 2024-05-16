@@ -1,5 +1,8 @@
 package midgard.code.thor.api.service;
 
+import midgard.code.thor.api.exception.InternalServerException;
+import midgard.code.thor.api.exception.InvalidRequestException;
+import midgard.code.thor.api.model.dto.RealTimeWeatherDto;
 import midgard.code.thor.api.model.dto.WeatherForecastDto;
 import midgard.code.thor.api.utils.HttpClientManager;
 import midgard.code.thor.api.utils.HttpClientManagerImpl;
@@ -13,11 +16,14 @@ public class WeatherServiceImpl implements WeatherService {
     @Value("${api.tomorrow-io.endpoints.weather-forecast}")
     private String weatherForecastEndpoint;
 
+    @Value("${api.tomorrow-io.endpoints.real-time-weather}")
+    private String realTimeWeatherEndpoint;
+
     @Value("${api.tomorrow-io.api-key}")
     private String apiKey;
 
     @Override
-    public WeatherForecastDto getWeatherForecast(String location) {
+    public WeatherForecastDto getWeatherForecast(String location) throws InternalServerException, InvalidRequestException {
         HttpClientManager httpClientManager = new HttpClientManagerImpl();
 
         HashMap<String, String> queryParams = new HashMap<>();
@@ -25,5 +31,16 @@ public class WeatherServiceImpl implements WeatherService {
         queryParams.put("apikey", apiKey);
 
         return httpClientManager.get(weatherForecastEndpoint, queryParams, WeatherForecastDto.class);
+    }
+
+    @Override
+    public RealTimeWeatherDto getRealTimeWeather(String location) throws InternalServerException, InvalidRequestException {
+        HttpClientManager httpClientManager = new HttpClientManagerImpl();
+
+        HashMap<String, String> queryParams = new HashMap<>();
+        queryParams.put("location", location);
+        queryParams.put("apikey", apiKey);
+
+        return httpClientManager.get(realTimeWeatherEndpoint, queryParams, RealTimeWeatherDto.class);
     }
 }

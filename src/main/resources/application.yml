@@ -7,3 +7,4 @@ api:
     api-key: HWsssnn5nA0JUgowP0aoX4MegYfMKmu3
     endpoints:
       weather-forecast: https://api.tomorrow.io/v4/weather/forecast
+      real-time-weather: https://api.tomorrow.io/v4/weather/realtime
